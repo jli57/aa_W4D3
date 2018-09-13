@@ -21,6 +21,14 @@ class User < ApplicationRecord
   
   after_initialize :ensure_session_token
   
+  has_many :cats,
+    foreign_key: :user_id,
+    class_name: :Cat
+    
+  has_many :rental_requests,
+    foreign_key: :user_id,
+    class_name: :CatRentalRequest    
+  
   def self.find_by_credentials(user_name, password)
     user = User.find_by(user_name: user_name)
     return user if user && user.is_password?(password)
@@ -41,6 +49,8 @@ class User < ApplicationRecord
   
   def reset_session_token!
     self.session_token = User.generate_session_token
+    self.save!
+    self.session_token
   end
   
   def is_password?(pw)

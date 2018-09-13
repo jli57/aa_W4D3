@@ -1,0 +1,33 @@
+<%# action = (type  ? cat_url(cat) : cats_url) %>
+<%# method = (cat.persisted? ? :post : :post) %>
+
+<% if type == 'login' %>
+  <% action = session_url %> 
+  <% method = :post %> 
+  <% submit_text = 'Login' %> 
+<% elsif type == 'signup' %>
+  <% action = users_url %>
+  <% method = :post  %> 
+  <% submit_text = 'Sign up' %>
+<% end %>
+
+<form action="<%= action %>" method="post">
+  <input type="hidden" name="authenticity_token" value="form_authenticity_token"> 
+  <input type="hidden" name="_method" value="<%= method %>">
+
+  <label for="user_name">Username</label>
+  <input
+    type="text"
+    name="user[user_name]"
+    id="user_name"
+    value="">
+
+  <label for="password">Password</label>
+  <input
+    type="password"
+    name="user[password]"
+    id="password"
+    value="">
+  <br>
+  <input type="submit" value="<%= submit_text %>">
+</form>

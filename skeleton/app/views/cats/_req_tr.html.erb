@@ -1,4 +1,5 @@
 <tr>
+  <td><%= req.requestor_name %></td>
   <td><%= req.start_date %></td>
   <td><%= req.end_date %></td>
   <td>
@@ -8,6 +9,9 @@
             type="hidden"
             name="authenticity_token"
             value="<%= form_authenticity_token %>">
+          <input type="hidden" name="cat_rental_request[cat_id]" value="<%=req.cat_id%>">
+          <input type="hidden" name="cat_rental_request[start_date]" value="<%=req.start_date%>">
+          <input type="hidden" name="cat_rental_request[end_date]" value="<%=req.end_date%>">
           <input type="submit" value="Approve">
         </form>
         <form action="<%= deny_cat_rental_request_url(req) %>" method="post">
